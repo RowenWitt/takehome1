@@ -6,6 +6,8 @@ class Indexer():
         self.add_to_table(body)
 
     def add_to_table(self, words):
+        ''' Adds sequences to index table
+        adds sequences to searchable body '''
         counter = 0
         for word in words:
             n_pos = len(self.body)
@@ -23,6 +25,8 @@ class Indexer():
         return counter
 
     def search_indexes(self, pattern):
+        ''' Search patterns and return indexes
+        of matches '''
         out = []
         for seq in pattern:
             if seq in self.table:
@@ -33,6 +37,8 @@ class Indexer():
         return out
 
     def search(self, pattern):
+        ''' Search patterns and return words
+        of matches '''
         indexes = [list(i) for i in self.search_indexes(pattern)]
         out = []
         for i in indexes:
@@ -40,6 +46,9 @@ class Indexer():
         return out
 
     def reindex(self, body=[]):
+        ''' Reindexes on an updated body,
+        returns number of steps taken for
+        triangular number check '''
         if body == []:
             body = self.body
         self.body = []
@@ -48,5 +57,6 @@ class Indexer():
         return count
 
     def delete(self, values):
+        ''' Reindexes without values to be deleted '''
         vals = [i for i in self.body if i not in values]
         self.reindex(vals)
